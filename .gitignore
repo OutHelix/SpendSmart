@@ -199,3 +199,6 @@ README.html
 *.iml
 .idea
 .exercism
+
+### Project SpendSmart custom ignore
+/src/main/resources/config.properties
