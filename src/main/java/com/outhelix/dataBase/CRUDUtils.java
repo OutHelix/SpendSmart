@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CRUDUtils {
-    public static User getUserData(int userId, Connection connection) {
+    public static User getUserDataFromId(int userId, Connection connection) {
         String query = "SELECT * FROM db.users WHERE id = ?";
         User user = null;
 
