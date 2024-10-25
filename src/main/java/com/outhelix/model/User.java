@@ -1,9 +1,18 @@
-package com.outhelix.dataBase;
+package com.outhelix.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users", schema = "db")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private double account;
+
+    public User() {}
 
     public User(int id, String name, double account) {
         this.id = id;
@@ -33,14 +42,5 @@ public class User {
 
     public void setAccount(double account) {
         this.account = account;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", account=" + account +
-                '}';
     }
 }
