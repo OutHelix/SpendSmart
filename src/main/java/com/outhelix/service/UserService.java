@@ -2,26 +2,35 @@ package com.outhelix.service;
 
 import com.outhelix.model.User;
 import com.outhelix.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
-//    public void saveUser(User user) {
-//        userRepository.save(user);
-//    }
+    public User findByEmailOrUsername(String loginEmailOrUsername) {
+        if (isEmail(loginEmailOrUsername)) {
+            return userRepository.findByEmailOrUsername(loginEmailOrUsername, null);
+        } else {
+            return userRepository.findByEmailOrUsername(null, loginEmailOrUsername);
+        }
+    }
+
+    private boolean isEmail(String str) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 }

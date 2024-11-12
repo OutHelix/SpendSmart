@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1>Добро пожаловать, <span th:text="${user.firstName}"></span>!</h1>
+<p>Ваша фамилия: <span th:text="${user.lastName}"></span></p>
+<p>Ваш email: <span th:text="${user.email}"></span></p>
+<p>Аккаунт создан: <span th:text="${user.createdAt}"></span></p>
+</body>
+</html>

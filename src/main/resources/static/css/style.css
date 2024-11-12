@@ -1,0 +1,90 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 14px;
+    min-width: 0;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+div p {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+div p[style="color:red;"] {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%;
+    }
+}
