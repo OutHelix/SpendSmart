@@ -2,6 +2,9 @@ package com.outhelix.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "transactions", schema = "db")
 public class Transaction {
@@ -10,19 +13,35 @@ public class Transaction {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private double moneyAmount;
-    private String transactionType;
+    @Column(precision = 15, scale = 2)
+    private BigDecimal amount;
+
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime date;
+
+    private String description;
 
     public Transaction() {}
 
-    public Transaction(int id, User user, double moneyAmount, String transactionType) {
+    public Transaction(int id, Account account, Category category, User user, BigDecimal amount, LocalDateTime date, String description) {
         this.id = id;
+        this.account = account;
+        this.category = category;
         this.user = user;
-        this.moneyAmount = moneyAmount;
-        this.transactionType = transactionType;
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
     }
 
     public int getId() {
@@ -33,6 +52,22 @@ public class Transaction {
         this.id = id;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public User getUser() {
         return user;
     }
@@ -41,19 +76,27 @@ public class Transaction {
         this.user = user;
     }
 
-    public double getMoneyAmount() {
-        return moneyAmount;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setMoneyAmount(double moneyAmount) {
-        this.moneyAmount = moneyAmount;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public String getTransactionType() {
-        return transactionType;
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

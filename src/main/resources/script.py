@@ -1,7 +1,6 @@
 import psycopg2
-from psycopg2 import sql
 
-# Подключение к базе данных PostgreSQL
+# Подключение к базе данных
 conn = psycopg2.connect(
     dbname="SpendSmart",
     user="postgres",
@@ -12,9 +11,10 @@ conn = psycopg2.connect(
 conn.autocommit = True
 cursor = conn.cursor()
 
-# SQL-команды для создания схемы и таблиц
+# Создание схемы
 create_schema = "CREATE SCHEMA IF NOT EXISTS db;"
 
+# Создание таблицы пользователей
 create_users_table = """
 CREATE TABLE IF NOT EXISTS db.users (
     id SERIAL PRIMARY KEY,
@@ -27,10 +27,33 @@ CREATE TABLE IF NOT EXISTS db.users (
 );
 """
 
+# Создание таблицы категорий
+create_categories_table = """
+CREATE TABLE IF NOT EXISTS db.categories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(10) CHECK (type IN ('income', 'expense')) NOT NULL
+);
+"""
+
+# Создание таблицы счетов
+create_accounts_table = """
+CREATE TABLE IF NOT EXISTS db.accounts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES db.users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    balance DECIMAL(15, 2) DEFAULT 0.00,
+    currency VARCHAR(10) DEFAULT 'RUB'
+);
+"""
+
+# Создание таблицы транзакций
 create_transactions_table = """
 CREATE TABLE IF NOT EXISTS db.transactions (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES db.users(id) ON DELETE CASCADE,
+    account_id INTEGER REFERENCES db.accounts(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES db.categories(id),
+    user_id INTEGER REFERENCES db.users(id) ON DELETE CASCADE,
     amount DECIMAL(15, 2) NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     description TEXT
@@ -41,23 +64,41 @@ CREATE TABLE IF NOT EXISTS db.transactions (
 def recreate_tables():
     cursor.execute(create_schema)
     cursor.execute("DROP TABLE IF EXISTS db.transactions CASCADE;")
+    cursor.execute("DROP TABLE IF EXISTS db.accounts CASCADE;")
+    cursor.execute("DROP TABLE IF EXISTS db.categories CASCADE;")
     cursor.execute("DROP TABLE IF EXISTS db.users CASCADE;")
     cursor.execute(create_users_table)
+    cursor.execute(create_categories_table)
+    cursor.execute(create_accounts_table)
     cursor.execute(create_transactions_table)
     print("Таблицы пересозданы.")
 
-# Функция заполнения тестовыми данными
+# Функция добавления тестовых данных
 def insert_test_data():
+    # Данные для таблицы пользователей
     users_data = [
         ("User1", "Test", "user1", "user1@example.com", "password1"),
         ("User2", "Test", "user2", "user2@example.com", "password2"),
         ("User3", "Test", "user3", "user3@example.com", "password3")
     ]
 
-    # Вставка пользователей
+    # Данные для таблицы категорий
+    categories_data = [
+        ("Зарплата", "income"),
+        ("Продукты", "expense"),
+        ("Коммунальные услуги", "expense")
+    ]
+
+    # Вставка данных пользователей
     cursor.executemany(
         "INSERT INTO db.users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s);",
         users_data
+    )
+
+    # Вставка данных категорий
+    cursor.executemany(
+        "INSERT INTO db.categories (name, type) VALUES (%s, %s);",
+        categories_data
     )
 
     print("Тестовые данные добавлены.")
@@ -65,11 +106,11 @@ def insert_test_data():
 if __name__ == "__main__":
     recreate_tables()
 
-    option = input("Укажите 0 для пустой таблицы или 1 для заполнения тестовыми данными.\n")
+    option = input("Введите 0 для пустых таблиц или 1 для заполнения тестовыми данными.\n")
     if option == "1":
         insert_test_data()
     elif option != "0":
-        print("Неправильный аргумент. Используйте 0 для пустой таблицы или 1 для заполнения тестовыми данными.")
+        print("Неправильный аргумент. Используйте 0 для пустых таблиц или 1 для заполнения тестовыми данными.")
 
     cursor.close()
     conn.close()

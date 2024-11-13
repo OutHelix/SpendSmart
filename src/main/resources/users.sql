@@ -1,9 +1,0 @@
-CREATE SCHEMA IF NOT EXISTS db;
-
-DROP TABLE IF EXISTS db.users;
-
-CREATE TABLE db.users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(80),
-    account FLOAT
-);
