@@ -3,7 +3,6 @@ package com.outhelix.controller;
 import com.outhelix.model.User;
 import com.outhelix.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

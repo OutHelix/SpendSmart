@@ -1,6 +1,6 @@
 import psycopg2
 
-# Подключение к базе данных
+
 conn = psycopg2.connect(
     dbname="SpendSmart",
     user="postgres",
@@ -11,10 +11,8 @@ conn = psycopg2.connect(
 conn.autocommit = True
 cursor = conn.cursor()
 
-# Создание схемы
 create_schema = "CREATE SCHEMA IF NOT EXISTS db;"
 
-# Создание таблицы пользователей
 create_users_table = """
 CREATE TABLE IF NOT EXISTS db.users (
     id SERIAL PRIMARY KEY,
@@ -27,7 +25,6 @@ CREATE TABLE IF NOT EXISTS db.users (
 );
 """
 
-# Создание таблицы категорий
 create_categories_table = """
 CREATE TABLE IF NOT EXISTS db.categories (
     id SERIAL PRIMARY KEY,
@@ -36,7 +33,6 @@ CREATE TABLE IF NOT EXISTS db.categories (
 );
 """
 
-# Создание таблицы счетов
 create_accounts_table = """
 CREATE TABLE IF NOT EXISTS db.accounts (
     id SERIAL PRIMARY KEY,
@@ -47,7 +43,6 @@ CREATE TABLE IF NOT EXISTS db.accounts (
 );
 """
 
-# Создание таблицы транзакций
 create_transactions_table = """
 CREATE TABLE IF NOT EXISTS db.transactions (
     id SERIAL PRIMARY KEY,
@@ -60,7 +55,6 @@ CREATE TABLE IF NOT EXISTS db.transactions (
 );
 """
 
-# Функция пересоздания таблиц
 def recreate_tables():
     cursor.execute(create_schema)
     cursor.execute("DROP TABLE IF EXISTS db.transactions CASCADE;")
@@ -73,29 +67,24 @@ def recreate_tables():
     cursor.execute(create_transactions_table)
     print("Таблицы пересозданы.")
 
-# Функция добавления тестовых данных
 def insert_test_data():
-    # Данные для таблицы пользователей
     users_data = [
         ("User1", "Test", "user1", "user1@example.com", "password1"),
         ("User2", "Test", "user2", "user2@example.com", "password2"),
         ("User3", "Test", "user3", "user3@example.com", "password3")
     ]
 
-    # Данные для таблицы категорий
     categories_data = [
         ("Зарплата", "income"),
         ("Продукты", "expense"),
         ("Коммунальные услуги", "expense")
     ]
 
-    # Вставка данных пользователей
     cursor.executemany(
         "INSERT INTO db.users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s);",
         users_data
     )
 
-    # Вставка данных категорий
     cursor.executemany(
         "INSERT INTO db.categories (name, type) VALUES (%s, %s);",
         categories_data

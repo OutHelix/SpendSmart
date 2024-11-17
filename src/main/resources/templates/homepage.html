@@ -2,11 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Личный кабинет</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Добро пожаловать, <span th:text="${user.firstName}"></span>!</h1>
-<p>Ваша фамилия: <span th:text="${user.lastName}"></span></p>
-<p>Ваш email: <span th:text="${user.email}"></span></p>
-<p>Аккаунт создан: <span th:text="${user.createdAt}"></span></p>
+    <div class="homepage-container">
+        <div class="header-info">
+            <h1>Добро пожаловать, <span th:text="${user.firstName}"></span>!</h1>
+            <p>Ваша фамилия: <span th:text="${user.lastName}"></span></p>
+            <p>Ваш email: <span th:text="${user.email}"></span></p>
+            <p>Аккаунт создан: <span th:text="${user.createdAt}"></span></p>
+            <button class="settings-button">Настроить</button>
+        </div>
+
+        <div class="accounts-section">
+            <h2>Ваши счета</h2>
+            <ul>
+                <li th:each="account : ${accounts}">
+                    <p>Счёт: <span th:text="${account.number}"></span></p>
+                    <p>Баланс: <span th:text="${account.balance}"></span></p>
+                </li>
+            </ul>
+            <button class="new-account-button">Создать счет</button>
+        </div>
+    </div>
 </body>
 </html>

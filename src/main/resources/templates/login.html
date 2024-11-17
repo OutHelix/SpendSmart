@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Входы</title>
+    <title>Вход</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-
+<body class="centered-container">
 <div class="login-container">
     <h2>Вход</h2>
-    <form th:action="@{/login}" th:object="${user}" method="post" >
-        <div>
+    <form th:action="@{/login}" th:object="${user}" method="post">
+        <div class="field-group">
             <label for="username">Имя пользователя:</label>
-            <input type="text" id="username" th:field="*{username}" required />
+            <input type="text" id="username" th:field="*{username}" required>
         </div>
-        <div>
+        <div class="field-group">
             <label for="password">Пароль:</label>
-            <input type="password" id="password" th:field="*{password}" required />
+            <input type="password" id="password" th:field="*{password}" required>
         </div>
-        <div>
-            <button type="submit">Войти</button>
-        </div>
-        <div th:if="${error}">
-            <p style="color:red;">Неверное имя пользователя или пароль!</p>
-        </div>
-
+        <button type="submit">Войти</button>
+        <a href="/registration" class="nav-button">Нет аккаунта? Регистрация</a>
     </form>
 </div>
-
 </body>
 </html>

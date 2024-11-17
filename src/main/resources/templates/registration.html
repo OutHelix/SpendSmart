@@ -2,35 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Registration</title>
+  <title>Регистрация</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="centered-container">
 <div class="form-container">
   <h2>Регистрация</h2>
   <form th:action="@{/registration}" th:object="${user}" method="post">
-
-    <div class="name-container">
-      <div class="name-field">
-        <label for="firstName">Имя</label>
-        <input type="text" id="firstName" th:field="*{firstName}" required>
-      </div>
-      <div class="name-field">
-        <label for="lastName">Фамилия</label>
-        <input type="text" id="lastName" th:field="*{lastName}" required>
-      </div>
+    <div class="field-group">
+      <label for="firstName">Имя</label>
+      <input type="text" id="firstName" th:field="*{firstName}" required>
     </div>
-
-    <label for="username">Логин</label>
-    <input type="text" id="username" th:field="*{username}" required>
-
-    <label for="email">Почта</label>
-    <input type="email" id="email" th:field="*{email}" required>
-
-    <label for="password">Пароль</label>
-    <input type="password" id="password" th:field="*{password}" required>
-
-    <input type="submit" value="Зарегистрироваться">
+    <div class="field-group">
+      <label for="lastName">Фамилия</label>
+      <input type="text" id="lastName" th:field="*{lastName}" required>
+    </div>
+    <div class="field-group">
+      <label for="username">Логин</label>
+      <input type="text" id="username" th:field="*{username}" required>
+    </div>
+    <div class="field-group">
+      <label for="email">Почта</label>
+      <input type="email" id="email" th:field="*{email}" required>
+    </div>
+    <div class="field-group">
+      <label for="password">Пароль</label>
+      <input type="password" id="password" th:field="*{password}" required>
+    </div>
+    <button type="submit">Зарегистрироваться</button>
+    <a href="/login" class="nav-button">Уже зарегистрированы? Войти</a>
   </form>
 </div>
 </body>

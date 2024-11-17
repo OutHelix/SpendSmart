@@ -1,90 +1,218 @@
+/* Общий стиль для всех страниц */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fb;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
-.login-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-    width: 380px;
-    text-align: center;
+/* Центрирование контейнеров */
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 25px;
-    font-size: 28px;
-}
-
-label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #555;
-    text-align: left;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+/* Общий стиль для всех форм */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    font-size: 14px;
-    min-width: 0;
-    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus {
+/* Группировка полей для выравнивания */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Выровненные формы */
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
     border-color: #4CAF50;
     outline: none;
-    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-button[type="submit"] {
+/* Контейнер для формы */
+.login-container, .form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    border-top: 4px solid #4CAF50;
+}
+
+.login-container h2, .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Кнопки */
+button, input[type="submit"] {
     background-color: #4CAF50;
     color: white;
-    padding: 14px;
     border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #45a049;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Ссылки */
+.nav-button {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.nav-button:hover {
+    color: #388E3C;
+}
+
+/* Блоки на главной странице */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Стиль для блока информации о пользователе */
+.header-info {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-top: 4px solid #4CAF50;
+}
+
+.header-info h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.header-info p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.settings-button {
+    align-self: flex-end;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-button[type="submit"]:hover {
-    background-color: #45a049;
+.settings-button:hover {
+    background-color: #4CAF50;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-div p {
-    font-size: 14px;
-    text-align: center;
-    margin-top: 20px;
-    color: #666;
+/* Стиль для блока с информацией о счетах */
+.accounts-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-top: 4px solid #4CAF50;
 }
 
-div p[style="color:red;"] {
-    color: red;
+.accounts-section h2 {
+    font-size: 20px;
+    color: #333;
     font-weight: bold;
-    text-align: center;
 }
 
-@media (max-width: 480px) {
-    .login-container {
-        width: 90%;
-    }
+.accounts-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.accounts-section li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accounts-section li:last-child {
+    border-bottom: none;
+}
+
+.accounts-section p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.new-account-button {
+    align-self: flex-end;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.new-account-button:hover {
+    background-color: #4CAF50;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
